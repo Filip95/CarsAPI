@@ -8,8 +8,10 @@ use App\Http\Requests\CreateCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 class CarController extends Controller
 {
-    public function index(){
-        $cars = Car::all();
+    public function index(Request $request){
+        $take = $request->query('take');
+        $skip = $request->skip('skip');
+        $cars = Car::search($take, $skip);
         return response()->json($cars);
     }
 
